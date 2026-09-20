@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "last_run": "2026-09-20T09:42:25+00:00",
+    "last_run_new_listings": 0,
+    "last_run_skipped_old": 0,
+    "last_run_errors": [],
+    "last_run_timed_out": false,
+    "facebook_manual_search_url": "https://www.facebook.com/marketplace/warszawa/search?query=mieszkanie%20sprzeda%C5%BC&sortBy=creation_time_descend",
+    "criteria": {
+      "city": "Warszawa",
+      "price_min_pln": 300000,
+      "price_max_pln": 770000,
+      "area_min_m2": 25,
+      "area_max_m2": 42,
+      "market": "wtorny (secondary market only)"
+    },
+    "total_listings": 0
+  },
+  "listings": []
+}
