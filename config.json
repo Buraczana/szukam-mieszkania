@@ -545,8 +545,8 @@
   "run_settings": {
     "first_run_lookback_days": 7,
     "subsequent_run_lookback_days": 2,
-    "otodom_pages_first_run": 20,
-    "otodom_pages_daily": 6,
+    "otodom_pages_first_run": 60,
+    "otodom_pages_daily": 24,
     "generic_pages_per_portal": 3,
     "request_delay_seconds": 1.0
   }
