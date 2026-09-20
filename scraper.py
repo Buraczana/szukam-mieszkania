@@ -3,7 +3,39 @@
 """
 Skaner ofert mieszkań na sprzedaż (rynek wtórny) w Warszawie.
 
-WERSJA 4 - poprawia dwa kolejne zgłoszone błędy:
+WERSJA 5 - naprawia "zero wyników mimo istniejących ofert" (np. na ul.
+Kasprowicza i Płatniczej). Dwie potwierdzone (nie domniemane) przyczyny,
+zweryfikowane bezpośrednio na żywej stronie i na testach:
+
+PRZYCZYNA A: błędny adres URL wyszukiwania Otodom.
+  Skaner używał ".../mieszkanie/rynek-wtorny/mazowieckie/warszawa/warszawa/
+  warszawa" - to nie jest poprawny format. Sprawdzony na żywo, działający
+  adres to ".../mieszkanie,rynek-wtorny/mazowieckie/warszawa" (przecinek
+  między "mieszkanie" i "rynek-wtorny", BEZ potrójnego powtórzenia
+  "warszawa"). Przy błędnym adresie Otodom nie zwraca błędu HTTP - po cichu
+  pokazuje 0 ogłoszeń dla nierozpoznanej lokalizacji, więc nic tego nie
+  sygnalizowało w logach. Ten błąd był obecny już w poprzedniej wersji -
+  wcześniej maskował go Tabelaofert.pl, który i tak zwracał (niedoskonałe)
+  wyniki z innych źródeł; po jego usunięciu wyszło na jaw, że sam Otodom nic
+  nie zwracał.
+
+PRZYCZYNA B: mechanizm "stop przy drugiej cenie" (dodany, by nie mylić
+  sąsiednich ogłoszeń) błędnie liczył cenę ZA METR ("19 714 zł/m2") jako
+  sygnał drugiej, sąsiedniej karty - a każda, pojedyncza karta ogłoszenia
+  pokazuje ZARÓWNO cenę całkowitą, JAK I cenę za metr (obie ze słowem "zł").
+  W efekcie mechanizm zatrzymywał się natychmiast, w obrębie samego tytułu -
+  zanim dotarł do linii z ceną, metrażem i adresem ("Warszawa..."). Brak
+  słowa "Warszawa" w tak okrojonym tekście powodował odrzucenie WSZYSTKIEGO
+  przez filtr miasta. Potwierdzone bezpośrednim testem na realistycznej
+  karcie ogłoszenia (patrz find_card_text / TOTAL_PRICE_STOP_RE).
+  Naprawa: cena za metr (rozpoznawana po "zł" bezpośrednio przed "/m") jest
+  teraz wyłączona z liczenia "sygnału drugiej karty".
+
+Przy okazji: nazwy ulic w config.json są już przechowywane BEZ prefiksu
+"Ul."/"Al."/"Pl." (samo "Kasprowicza", nie "Ul. Kasprowicza") i dopasowanie
+szuka tego jako fragmentu tekstu - więc złapie zarówno "Kasprowicza", jak i
+"ul. Kasprowicza" w ogłoszeniu. To już działało poprawnie i zostało
+zweryfikowane testem, żeby mieć pewność, że kolejne poprawki tego nie zepsują.
 
 BŁĄD 3: "pokazują się oferty sprzed roku (np. 2024)"
   Przyczyna: skaner w ogóle nie sprawdzał FAKTYCZNEJ daty ogłoszenia - polegał
@@ -63,6 +95,12 @@ HEADERS = {
 REQUEST_TIMEOUT = (5, 10)
 
 PRICE_RE = re.compile(r"(\d[\d\s\u00a0]{2,9})\s?(?:zł|PLN)", re.IGNORECASE)
+# Cena "za m2" (np. "19 714 zł/m2") też pasuje do PRICE_RE, ale to jedna
+# dodatkowa liczba na KAŻDEJ, pojedynczej karcie (obok ceny całkowitej) - nie
+# jest sygnałem, że zaczęliśmy zbierać tekst sąsiedniego ogłoszenia. Do
+# wykrywania granicy między kartami liczymy więc tylko ceny NIE zaraz
+# poprzedzające "/m" (czyli tylko cenę całkowitą).
+TOTAL_PRICE_STOP_RE = re.compile(r"\d[\d\s\u00a0]{2,9}\s?zł(?!\s?/\s?m)", re.IGNORECASE)
 AREA_RE = re.compile(r"(\d{1,3}(?:[.,]\d{1,2})?)\s?m(?:²|2|kw\.?)\b", re.IGNORECASE)
 RENT_HINT_RE = re.compile(r"wynaj|/\s*mies|zł\s*/\s*miesi", re.IGNORECASE)
 ADDRESS_RE = re.compile(
@@ -243,9 +281,14 @@ def is_probable_offer_url(url, portal_name):
     return has_id and descriptive_slug
 
 
-def find_card_text(anchor, max_hops=6):
-    """Rozszerza kontener tekstowy wokół linku, ale zatrzymuje się, gdy
-    pojawi się DRUGA cena (sygnał, że zebrano już tekst sąsiedniej karty)."""
+def find_card_text(anchor, max_hops=8):
+    """
+    Rozszerza kontener tekstowy wokół linku krok po kroku. Zatrzymuje się,
+    gdy w zebranym tekście pojawia się DRUGA cena CAŁKOWITA (TOTAL_PRICE_STOP_RE
+    już poprawnie pomija cenę za m2, która i tak występuje raz na każdej,
+    pojedynczej karcie) - to sygnał, że zaczęliśmy zbierać tekst sąsiedniej
+    karty ogłoszenia.
+    """
     container = anchor
     best_text = anchor.get_text(" ", strip=True)
     for _ in range(max_hops):
@@ -253,7 +296,7 @@ def find_card_text(anchor, max_hops=6):
         if parent is None:
             break
         candidate_text = parent.get_text(" ", strip=True)
-        if len(PRICE_RE.findall(candidate_text)) >= 2:
+        if len(TOTAL_PRICE_STOP_RE.findall(candidate_text)) >= 2:
             break
         best_text = candidate_text
         container = parent
@@ -393,12 +436,18 @@ def add_matches(data, existing_urls, criteria, matches, now_iso, counters, run_s
 def scan_otodom_once(streets, criteria, run_settings, is_first_run):
     matches = []
     max_pages = run_settings["otodom_pages_first_run"] if is_first_run else run_settings["otodom_pages_daily"]
-    base_search = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie/rynek-wtorny/mazowieckie/warszawa/warszawa/warszawa"
+    # Adres potwierdzony bezpośrednim sprawdzeniem na żywej stronie (2026-09):
+    # przecinek między "mieszkanie" i "rynek-wtorny", BEZ powtórzenia "warszawa".
+    # Poprzednia wersja miała błędny adres (.../warszawa/warszawa/warszawa), przez
+    # co Otodom po cichu zwracał 0 ogłoszeń dla nierozpoznanej lokalizacji -
+    # bez błędu HTTP, więc nic tego nie sygnalizowało w logach.
+    base_search = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,rynek-wtorny/mazowieckie/warszawa"
     for page in range(1, max_pages + 1):
         if time_budget_exceeded():
             log("  -> przekroczono budżet czasu, przerywam Otodom wcześniej")
             break
-        url = f"{base_search}?page={page}" if page > 1 else base_search
+        params = "by=LATEST&direction=DESC" + (f"&page={page}" if page > 1 else "")
+        url = f"{base_search}?{params}"
         html = safe_get(url)
         time.sleep(run_settings["request_delay_seconds"])
         if not html:
