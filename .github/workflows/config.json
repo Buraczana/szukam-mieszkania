@@ -1,0 +1,553 @@
+{
+  "search_criteria": {
+    "city": "Warszawa",
+    "price_min_pln": 300000,
+    "price_max_pln": 770000,
+    "area_min_m2": 25,
+    "area_max_m2": 42,
+    "market": "wtorny (secondary market only)"
+  },
+  "streets": [
+    {
+      "display": "Ul. Bałuckiego, Warszawa",
+      "match": "Bałuckiego"
+    },
+    {
+      "display": "Ul. Kwiatowa, Warszawa",
+      "match": "Kwiatowa"
+    },
+    {
+      "display": "Ul. Kazimierzowska, Warszawa",
+      "match": "Kazimierzowska"
+    },
+    {
+      "display": "Ul. Wiśniowa, Warszawa",
+      "match": "Wiśniowa"
+    },
+    {
+      "display": "Ul. Różana, Warszawa",
+      "match": "Różana"
+    },
+    {
+      "display": "Ul. Falęcka, Warszawa",
+      "match": "Falęcka"
+    },
+    {
+      "display": "Ul. Lewicka, Warszawa",
+      "match": "Lewicka"
+    },
+    {
+      "display": "Ul. Narbutta, Warszawa",
+      "match": "Narbutta"
+    },
+    {
+      "display": "Ul. Melsztyńska, Warszawa",
+      "match": "Melsztyńska"
+    },
+    {
+      "display": "Ul. Starościńska, Warszawa",
+      "match": "Starościńska"
+    },
+    {
+      "display": "Ul. Króżańska, Warszawa",
+      "match": "Króżańska"
+    },
+    {
+      "display": "Ul. Szczekocińska, Warszawa",
+      "match": "Szczekocińska"
+    },
+    {
+      "display": "Ul. Droga, Warszawa",
+      "match": "Droga"
+    },
+    {
+      "display": "Ul. Tenisowa, Warszawa",
+      "match": "Tenisowa"
+    },
+    {
+      "display": "Ul. Dożynkowa, Warszawa",
+      "match": "Dożynkowa"
+    },
+    {
+      "display": "Ul. Odolańska, Warszawa",
+      "match": "Odolańska"
+    },
+    {
+      "display": "Ul. Dąbrowskiego, Warszawa",
+      "match": "Dąbrowskiego"
+    },
+    {
+      "display": "Ul. Noakowskiego, Warszawa",
+      "match": "Noakowskiego"
+    },
+    {
+      "display": "Ul. Lwowska, Warszawa",
+      "match": "Lwowska"
+    },
+    {
+      "display": "Ul. Śniadeckich, Warszawa",
+      "match": "Śniadeckich"
+    },
+    {
+      "display": "Ul. Aleja Róż, Warszawa",
+      "match": "Aleja Róż"
+    },
+    {
+      "display": "Ul. Aleja Wyzwolenia, Warszawa",
+      "match": "Aleja Wyzwolenia"
+    },
+    {
+      "display": "Ul. Wilcza, Warszawa",
+      "match": "Wilcza"
+    },
+    {
+      "display": "Ul. Hoża, Warszawa",
+      "match": "Hoża"
+    },
+    {
+      "display": "Ul. Poznańska, Warszawa",
+      "match": "Poznańska"
+    },
+    {
+      "display": "Ul. Wspólna, Warszawa",
+      "match": "Wspólna"
+    },
+    {
+      "display": "Ul. Piękna, Warszawa",
+      "match": "Piękna"
+    },
+    {
+      "display": "Ul. Polna, Warszawa",
+      "match": "Polna"
+    },
+    {
+      "display": "Ul. Koszykowa, Warszawa",
+      "match": "Koszykowa"
+    },
+    {
+      "display": "Ul. Mokotowska, Warszawa",
+      "match": "Mokotowska"
+    },
+    {
+      "display": "Ul. Natolińska, Warszawa",
+      "match": "Natolińska"
+    },
+    {
+      "display": "Ul. Służewska, Warszawa",
+      "match": "Służewska"
+    },
+    {
+      "display": "Aleja Przyjaciół, Warszawa",
+      "match": "Aleja Przyjaciół"
+    },
+    {
+      "display": "Świętej Teresy, Warszawa",
+      "match": "Świętej Teresy"
+    },
+    {
+      "display": "Ul. Czerwijowskiego, Warszawa",
+      "match": "Czerwijowskiego"
+    },
+    {
+      "display": "Ul. Sempołowskiej, Warszawa",
+      "match": "Sempołowskiej"
+    },
+    {
+      "display": "Ul. Chopina, Warszawa",
+      "match": "Chopina"
+    },
+    {
+      "display": "Ul. Krucza, Warszawa",
+      "match": "Krucza"
+    },
+    {
+      "display": "Ul. Chocimska, Warszawa",
+      "match": "Chocimska"
+    },
+    {
+      "display": "Ul. Zoli, Warszawa",
+      "match": "Zoli"
+    },
+    {
+      "display": "Ul. Klonowa, Warszawa",
+      "match": "Klonowa"
+    },
+    {
+      "display": "Ul. Flory, Warszawa",
+      "match": "Flory"
+    },
+    {
+      "display": "Ul. Bagatela, Warszawa",
+      "match": "Bagatela"
+    },
+    {
+      "display": "Ul. Adolfa Dymszy, Warszawa",
+      "match": "Adolfa Dymszy"
+    },
+    {
+      "display": "Ul. Szucha, Warszawa",
+      "match": "Szucha"
+    },
+    {
+      "display": "Ul. Litewska, Warszawa",
+      "match": "Litewska"
+    },
+    {
+      "display": "Ul. Sędziowska, Warszawa",
+      "match": "Sędziowska"
+    },
+    {
+      "display": "Ul. Apkikancka, Warszawa",
+      "match": "Apkikancka"
+    },
+    {
+      "display": "Ul. Jesionowa, Warszawa",
+      "match": "Jesionowa"
+    },
+    {
+      "display": "Ul. Filtrowa, Warszawa",
+      "match": "Filtrowa"
+    },
+    {
+      "display": "Ul. Trybunalska, Warszawa",
+      "match": "Trybunalska"
+    },
+    {
+      "display": "Ul. Langiewicza, Warszawa",
+      "match": "Langiewicza"
+    },
+    {
+      "display": "Ul. Prezydencka, Warszawa",
+      "match": "Prezydencka"
+    },
+    {
+      "display": "Ul. Bł. Ładysława z Gielniowa, Warszawa",
+      "match": "Bł. Ładysława z Gielniowa"
+    },
+    {
+      "display": "Ul. Rudawska, Warszawa",
+      "match": "Rudawska"
+    },
+    {
+      "display": "Ul. Solariego, Warszawa",
+      "match": "Solariego"
+    },
+    {
+      "display": "Ul. Orzechowska, Warszawa",
+      "match": "Orzechowska"
+    },
+    {
+      "display": "Ul. Łęczycka, Warszawa",
+      "match": "Łęczycka"
+    },
+    {
+      "display": "Ul. Sienna, Warszawa",
+      "match": "Sienna"
+    },
+    {
+      "display": "Ul. Chmielna, Warszawa",
+      "match": "Chmielna"
+    },
+    {
+      "display": "Ul. Złota, Warszawa",
+      "match": "Złota"
+    },
+    {
+      "display": "Ul. Miedziana, Warszawa",
+      "match": "Miedziana"
+    },
+    {
+      "display": "Ul. Żelazna, Warszawa",
+      "match": "Żelazna"
+    },
+    {
+      "display": "Ul. Twarda, Warszawa",
+      "match": "Twarda"
+    },
+    {
+      "display": "Ul. Śliska , Warszawa",
+      "match": "Śliska"
+    },
+    {
+      "display": "Ul. Pereca, Warszawa",
+      "match": "Pereca"
+    },
+    {
+      "display": "Ul. Ciepła, Warszawa",
+      "match": "Ciepła"
+    },
+    {
+      "display": "Ul. Grzybowska, Warszawa",
+      "match": "Grzybowska"
+    },
+    {
+      "display": "Ul. Krochmalna, Warszawa",
+      "match": "Krochmalna"
+    },
+    {
+      "display": "Ul. Ptasia, Warszawa",
+      "match": "Ptasia"
+    },
+    {
+      "display": "Ul. Elektoralna, Warszawa",
+      "match": "Elektoralna"
+    },
+    {
+      "display": "Ul. Próżna, Warszawa",
+      "match": "Próżna"
+    },
+    {
+      "display": "Ul. Zielna, Warszawa",
+      "match": "Zielna"
+    },
+    {
+      "display": "Ul. Bagno, Warszawa",
+      "match": "Bagno"
+    },
+    {
+      "display": "Ul. Wallenberga, Warszawa",
+      "match": "Wallenberga"
+    },
+    {
+      "display": "Pl. Grzybowski, Warszawa",
+      "match": "Grzybowski"
+    },
+    {
+      "display": "Ul. Bielańska, Warszawa",
+      "match": "Bielańska"
+    },
+    {
+      "display": "Ul. Orla, Warszawa",
+      "match": "Orla"
+    },
+    {
+      "display": "Pasaż Simonsa, Warszawa",
+      "match": "Pasaż Simonsa"
+    },
+    {
+      "display": "Stare Nalewki, Warszawa",
+      "match": "Stare Nalewki"
+    },
+    {
+      "display": "Ul. Śmiała, Warszawa",
+      "match": "Śmiała"
+    },
+    {
+      "display": "Ul. Leopolda Lisa-Kuli, Warszawa",
+      "match": "Leopolda Lisa-Kuli"
+    },
+    {
+      "display": "Ul. Szaniawskiego, Warszawa",
+      "match": "Szaniawskiego"
+    },
+    {
+      "display": "Ul. Czarnieckiego, Warszawa",
+      "match": "Czarnieckiego"
+    },
+    {
+      "display": "Ul. Mierosławskiego, Warszawa",
+      "match": "Mierosławskiego"
+    },
+    {
+      "display": "Ul. Felińskiego, Warszawa",
+      "match": "Felińskiego"
+    },
+    {
+      "display": "Ul. Teodora Toeplitza, Warszawa",
+      "match": "Teodora Toeplitza"
+    },
+    {
+      "display": "Ul. Filarecka, Warszawa",
+      "match": "Filarecka"
+    },
+    {
+      "display": "Ul. Tucholska, Warszawa",
+      "match": "Tucholska"
+    },
+    {
+      "display": "Ul. Kniaźnina, Warszawa",
+      "match": "Kniaźnina"
+    },
+    {
+      "display": "Ul. Karpińskiego, Warszawa",
+      "match": "Karpińskiego"
+    },
+    {
+      "display": "Ul. Kątowa, Warszawa",
+      "match": "Kątowa"
+    },
+    {
+      "display": "Ul. Edwarda Wende, Warszawa",
+      "match": "Edwarda Wende"
+    },
+    {
+      "display": "Ul. Karola Szajnochy, Warszawa",
+      "match": "Karola Szajnochy"
+    },
+    {
+      "display": "Ul. Augusta Cieszkowskiego, Warszawa",
+      "match": "Augusta Cieszkowskiego"
+    },
+    {
+      "display": "Ul. Sarmatów, Warszawa",
+      "match": "Sarmatów"
+    },
+    {
+      "display": "Ul. Suzina, Warszawa",
+      "match": "Suzina"
+    },
+    {
+      "display": "Ul. Próchnika, Warszawa",
+      "match": "Próchnika"
+    },
+    {
+      "display": "Ul. Kasprowicza, Warszawa",
+      "match": "Kasprowicza"
+    },
+    {
+      "display": "Al. Zjednoczenia, Warszawa",
+      "match": "Zjednoczenia"
+    },
+    {
+      "display": "Ul. Lipińska, Warszawa",
+      "match": "Lipińska"
+    },
+    {
+      "display": "Ul. Bogumiła Zuga, Warszawa",
+      "match": "Bogumiła Zuga"
+    },
+    {
+      "display": "Ul. Barcicka, Warszawa",
+      "match": "Barcicka"
+    },
+    {
+      "display": "Ul. Szaflarska, Warszawa",
+      "match": "Szaflarska"
+    },
+    {
+      "display": "Ul. Płatnicza, Warszawa",
+      "match": "Płatnicza"
+    },
+    {
+      "display": "Ul. Kleczewska, Warszawa",
+      "match": "Kleczewska"
+    },
+    {
+      "display": "Plac Konfederacji, Warszawa",
+      "match": "Plac Konfederacji"
+    },
+    {
+      "display": "Ul. Efraima Schroegera, Warszawa",
+      "match": "Efraima Schroegera"
+    },
+    {
+      "display": "Ul. Karska, Warszawa",
+      "match": "Karska"
+    },
+    {
+      "display": "Ul. Grodeckiego, Warszawa",
+      "match": "Grodeckiego"
+    },
+    {
+      "display": "Ul. Myśliwiecka, Warszawa",
+      "match": "Myśliwiecka"
+    },
+    {
+      "display": "Ul. Hoene-Wrońskiego, Warszawa",
+      "match": "Hoene-Wrońskiego"
+    },
+    {
+      "display": "Ul. Profesorska, Warszawa",
+      "match": "Profesorska"
+    },
+    {
+      "display": "Ul. Maszyńskiego, Warszawa",
+      "match": "Maszyńskiego"
+    },
+    {
+      "display": "Ul. Wiejska, Warszawa",
+      "match": "Wiejska"
+    },
+    {
+      "display": "Ul. Senacka, Warszawa",
+      "match": "Senacka"
+    },
+    {
+      "display": "Ul. Frascati, Warszawa",
+      "match": "Frascati"
+    },
+    {
+      "display": "Ul. Pasaż Tyrmanda, Warszawa",
+      "match": "Pasaż Tyrmanda"
+    },
+    {
+      "display": "Ul. Prusa, Warszawa",
+      "match": "Prusa"
+    },
+    {
+      "display": "Ul. Marii Konopnickiej, Warszawa",
+      "match": "Marii Konopnickiej"
+    }
+  ],
+  "portals": [
+    {
+      "name": "Otodom.pl",
+      "domain": "otodom.pl",
+      "adapter": "structured",
+      "enabled": true
+    },
+    {
+      "name": "Olx.pl",
+      "domain": "olx.pl",
+      "adapter": "structured",
+      "enabled": true
+    },
+    {
+      "name": "Nieruchomosci-online.pl",
+      "domain": "nieruchomosci-online.pl",
+      "adapter": "heuristic",
+      "enabled": true,
+      "search_url_candidates": [
+        "https://www.nieruchomosci-online.pl/mieszkania/warszawa/sprzedam",
+        "https://www.nieruchomosci-online.pl/warszawa/mieszkania/sprzedam",
+        "https://www.nieruchomosci-online.pl/warszawa"
+      ]
+    },
+    {
+      "name": "Adresowo.pl",
+      "domain": "adresowo.pl",
+      "adapter": "structured",
+      "enabled": true
+    },
+    {
+      "name": "Gratka.pl",
+      "domain": "gratka.pl",
+      "adapter": "heuristic",
+      "enabled": true,
+      "search_url_candidates": [
+        "https://gratka.pl/nieruchomosci/mieszkania/warszawa",
+        "https://gratka.pl/nieruchomosci/mieszkania/sprzedaz/warszawa",
+        "https://gratka.pl/warszawa"
+      ]
+    },
+    {
+      "name": "Morizon.pl",
+      "domain": "morizon.pl",
+      "adapter": "heuristic",
+      "enabled": true,
+      "search_url_candidates": [
+        "https://www.morizon.pl/mieszkania/sprzedaz/warszawa/",
+        "https://www.morizon.pl/do-sprzedania/mieszkania/warszawa/",
+        "https://www.morizon.pl/warszawa/"
+      ]
+    }
+  ],
+  "run_settings": {
+    "first_run_lookback_days": 7,
+    "subsequent_run_lookback_days": 2,
+    "otodom_pages_first_run": 20,
+    "otodom_pages_daily": 6,
+    "generic_pages_per_portal": 3,
+    "request_delay_seconds": 1.0
+  }
+}
