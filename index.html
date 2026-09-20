@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Szukam mieszkania — podgląd ofert</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ECE8DE;
+    --paper-raised: #F7F4EC;
+    --ink: #23262B;
+    --ink-soft: #5B5F66;
+    --line: #D9D3C4;
+    --brick: #A8452C;
+    --brick-soft: #EADAD2;
+    --blueprint: #2B5C74;
+    --blueprint-soft: #DCE6E9;
+    --moss: #566B4E;
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1D20;
+      --paper-raised: #24272B;
+      --ink: #EDEAE2;
+      --ink-soft: #A6ABB2;
+      --line: #3A3D42;
+      --brick: #D97D5F;
+      --brick-soft: #3A2A24;
+      --blueprint: #7FB0C6;
+      --blueprint-soft: #22323A;
+      --moss: #93AC88;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1D20; --paper-raised: #24272B; --ink: #EDEAE2; --ink-soft: #A6ABB2;
+    --line: #3A3D42; --brick: #D97D5F; --brick-soft: #3A2A24; --blueprint: #7FB0C6;
+    --blueprint-soft: #22323A; --moss: #93AC88;
+  }
+  html, body { height: 100%; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
+
+  header.top {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 18px 0 14px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-soft);
+    letter-spacing: .01em; margin: 0 0 6px;
+  }
+  h1 {
+    font-family: "Fraunces", serif; font-weight: 500; font-size: 30px;
+    margin: 0 0 8px; letter-spacing: -0.01em;
+  }
+  .criteria {
+    font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; max-width: 60ch;
+  }
+  .criteria b { color: var(--ink); font-weight: 500; }
+
+  .statusbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+    font-size: 13.5px; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .statusbar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brick); display: inline-block; margin-right: 5px; }
+  .unread-count { color: var(--brick); font-weight: 600; }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; }
+  select, .btn {
+    font: inherit; font-size: 13.5px; padding: 7px 12px; border-radius: var(--radius);
+    border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink);
+    cursor: pointer;
+  }
+  .btn.primary { border-color: var(--brick); color: var(--brick); }
+  .btn.primary:hover { background: var(--brick-soft); }
+  .btn:hover { background: var(--line); }
+  select { -webkit-appearance: none; appearance: none; }
+
+  main { padding-top: 18px; }
+
+  .fb-note {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: var(--blueprint-soft); border: 1px solid var(--blueprint);
+    border-radius: var(--radius); padding: 12px 14px; margin-bottom: 20px; font-size: 13.5px;
+  }
+  .fb-note a { color: var(--blueprint); font-weight: 600; text-decoration: underline; }
+
+  ul.listings { list-style: none; margin: 0; padding: 0; }
+  .item {
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0 16px 14px;
+    border-left: 3px solid transparent;
+    transition: background .15s ease;
+  }
+  .item.unread { border-left-color: var(--brick); background: var(--paper-raised); }
+  .item.read { opacity: .62; }
+  .item-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .item-title { font-family: "Fraunces", serif; font-size: 18px; font-weight: 500; margin: 0 0 4px; }
+  .item-title a { text-decoration: none; }
+  .item-title a:hover { text-decoration: underline; }
+  .item-meta { font-size: 13px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 8px; }
+  .item-meta .street { color: var(--ink); font-weight: 500; }
+  .item-location { font-size: 13px; color: var(--blueprint); margin: 0 0 8px; }
+  .price-tag { font-family: "IBM Plex Mono", monospace; font-size: 14.5px; font-weight: 500; color: var(--moss); white-space: nowrap; }
+  .price-tag.missing { color: var(--ink-soft); font-style: italic; font-weight: 400; }
+  .review-flag {
+    display: inline-block; font-size: 12px; background: var(--brick-soft); color: var(--brick);
+    padding: 1px 7px; border-radius: var(--radius); margin-left: 6px;
+  }
+  .item-actions { display: flex; gap: 10px; margin-top: 6px; }
+  .item-actions button {
+    font: inherit; font-size: 12.5px; background: none; border: none; color: var(--ink-soft);
+    cursor: pointer; padding: 2px 0; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .item-actions button:hover { color: var(--ink); }
+
+  .empty {
+    padding: 48px 8px; text-align: center; color: var(--ink-soft);
+  }
+  .empty h2 { font-family: "Fraunces", serif; color: var(--ink); font-weight: 500; font-size: 20px; }
+
+  footer {
+    margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-soft);
+  }
+  footer a { color: var(--blueprint); }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 25px; }
+    .item-top { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Prywatny monitor ofert · rynek wtórny · Warszawa</p>
+    <h1>Szukam mieszkania</h1>
+    <p class="criteria" id="criteria-text">Wczytuję kryteria…</p>
+    <div class="statusbar" id="statusbar"></div>
+    <div class="toolbar">
+      <select id="filter-portal"><option value="">Wszystkie portale</option></select>
+      <select id="filter-street"><option value="">Wszystkie ulice</option></select>
+      <select id="filter-state">
+        <option value="unread">Tylko nieprzeczytane</option>
+        <option value="all">Wszystkie</option>
+      </select>
+      <select id="sort-by">
+        <option value="new">Najnowsze najpierw</option>
+        <option value="price-asc">Cena: rosnąco</option>
+        <option value="price-desc">Cena: malejąco</option>
+      </select>
+      <button class="btn" id="mark-all">Oznacz wszystkie jako przeczytane</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="fb-note">
+      <span>📘</span>
+      <span>Facebook Marketplace nie da się wiarygodnie przeszukiwać automatycznie (logowanie, zabezpieczenia antybotowe) —
+      sprawdzaj go ręcznie od czasu do czasu: <a id="fb-link" href="#" target="_blank" rel="noopener">otwórz wyszukiwanie na Marketplace</a>.</span>
+    </div>
+
+    <ul class="listings" id="listings"></ul>
+    <div class="empty" id="empty-state" hidden></div>
+  </main>
+
+  <footer>
+    <p id="last-run-info">—</p>
+    <p>Dane odświeżają się automatycznie raz na 24h (GitHub Actions). Status i logi skanowania: zakładka <strong>Actions</strong> w repozytorium.
+    Stan „przeczytane” jest zapisywany tylko w tej przeglądarce/urządzeniu.</p>
+  </footer>
+</div>
+
+<script>
+const READ_KEY = "mieszkania_read_urls_v1";
+
+function loadReadSet() {
+  try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || "[]")); }
+  catch (e) { return new Set(); }
+}
+function saveReadSet(set) {
+  try { localStorage.setItem(READ_KEY, JSON.stringify([...set])); } catch (e) {}
+}
+let readUrls = loadReadSet();
+
+function fmtMoney(n) {
+  if (n === null || n === undefined) return null;
+  return n.toLocaleString("pl-PL") + " zł";
+}
+function fmtArea(n) {
+  if (n === null || n === undefined) return null;
+  return n.toLocaleString("pl-PL") + " m²";
+}
+function relTime(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  const diffH = Math.round((Date.now() - d.getTime()) / 36e5);
+  if (diffH < 1) return "przed chwilą";
+  if (diffH < 24) return `${diffH} godz. temu`;
+  const days = Math.round(diffH / 24);
+  return days === 1 ? "wczoraj" : `${days} dni temu`;
+}
+function fmtDateTime(iso) {
+  if (!iso) return "nigdy";
+  const d = new Date(iso);
+  return d.toLocaleString("pl-PL", { dateStyle: "medium", timeStyle: "short" });
+}
+
+let ALL = [];
+
+function populateFilters(data) {
+  const portalSel = document.getElementById("filter-portal");
+  const streetSel = document.getElementById("filter-street");
+  const portals = [...new Set(data.map(i => i.portal))].sort();
+  const streets = [...new Set(data.map(i => i.street))].sort();
+  for (const p of portals) {
+    const o = document.createElement("option"); o.value = p; o.textContent = p; portalSel.appendChild(o);
+  }
+  for (const s of streets) {
+    const o = document.createElement("option"); o.value = s; o.textContent = s; streetSel.appendChild(o);
+  }
+}
+
+function render() {
+  const portal = document.getElementById("filter-portal").value;
+  const street = document.getElementById("filter-street").value;
+  const state = document.getElementById("filter-state").value;
+  const sortBy = document.getElementById("sort-by").value;
+
+  let items = ALL.filter(i => {
+    if (portal && i.portal !== portal) return false;
+    if (street && i.street !== street) return false;
+    const isRead = readUrls.has(i.url);
+    if (state === "unread" && isRead) return false;
+    return true;
+  });
+
+  if (sortBy === "price-asc") items.sort((a,b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+  else if (sortBy === "price-desc") items.sort((a,b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
+  else items.sort((a,b) => new Date(b.first_seen) - new Date(a.first_seen));
+
+  const list = document.getElementById("listings");
+  const emptyState = document.getElementById("empty-state");
+  list.innerHTML = "";
+
+  if (items.length === 0) {
+    emptyState.hidden = false;
+    emptyState.innerHTML = ALL.length === 0
+      ? "<h2>Jeszcze nic tu nie ma</h2><p>Pierwsze skanowanie jeszcze się nie odbyło. Uruchom je ręcznie w zakładce <strong>Actions → Skanuj oferty mieszkań → Run workflow</strong>.</p>"
+      : "<h2>Brak ofert dla tych filtrów</h2><p>Zmień filtry powyżej albo poczekaj na kolejne skanowanie.</p>";
+    return;
+  }
+  emptyState.hidden = true;
+
+  for (const item of items) {
+    const isRead = readUrls.has(item.url);
+    const li = document.createElement("li");
+    li.className = "item " + (isRead ? "read" : "unread");
+
+    const priceHtml = item.price !== null
+      ? `<span class="price-tag">${fmtMoney(item.price)}</span>`
+      : `<span class="price-tag missing">cena — sprawdź w ogłoszeniu</span>`;
+    const areaText = item.area !== null ? fmtArea(item.area) : "metraż — sprawdź w ogłoszeniu";
+    const reviewFlag = item.needs_review ? `<span class="review-flag">sprawdź szczegóły</span>` : "";
+
+    li.innerHTML = `
+      <div class="item-top">
+        <h3 class="item-title"><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a>${reviewFlag}</h3>
+        ${priceHtml}
+      </div>
+      <div class="item-meta">
+        <span class="street">Szukana ulica: ${item.street}</span>
+        <span>· ${item.portal}</span>
+        <span>· ${areaText}</span>
+        <span>· znaleziono ${relTime(item.first_seen)}</span>
+      </div>
+      ${item.location ? `<div class="item-location">📍 Adres w ogłoszeniu: <b>${item.location}</b></div>` : ""}
+      <div class="item-actions">
+        <button data-action="toggle" data-url="${item.url}">${isRead ? "Oznacz jako nieprzeczytane" : "Oznacz jako przeczytane"}</button>
+      </div>
+    `;
+    list.appendChild(li);
+  }
+}
+
+function updateStatusbar(data, meta) {
+  const unreadCount = data.filter(i => !readUrls.has(i.url)).length;
+  const bar = document.getElementById("statusbar");
+  bar.innerHTML = `<span><span class="dot"></span><span class="unread-count">${unreadCount} nowych</span> / ${data.length} ofert łącznie</span>`;
+  document.getElementById("last-run-info").textContent =
+    "Ostatnie skanowanie: " + fmtDateTime(meta.last_run) +
+    (meta.last_run ? ` (nowych ofert w tym przebiegu: ${meta.last_run_new_listings ?? 0})` : "");
+  if (meta.facebook_manual_search_url) {
+    document.getElementById("fb-link").href = meta.facebook_manual_search_url;
+  }
+}
+
+function updateCriteria(meta) {
+  const c = meta.criteria;
+  const el = document.getElementById("criteria-text");
+  if (!c) { el.textContent = "Brak danych o kryteriach."; return; }
+  el.innerHTML = `Szukane: <b>${c.area_min_m2}–${c.area_max_m2} m²</b>, cena do <b>${c.price_max_pln.toLocaleString("pl-PL")} zł</b>, rynek wtórny, wybrane ulice Warszawy.`;
+}
+
+document.getElementById("listings").addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-action='toggle']");
+  if (!btn) return;
+  const url = btn.dataset.url;
+  if (readUrls.has(url)) readUrls.delete(url); else readUrls.add(url);
+  saveReadSet(readUrls);
+  render();
+  updateStatusbar(ALL, window.__meta || {});
+});
+
+document.getElementById("mark-all").addEventListener("click", () => {
+  for (const i of ALL) readUrls.add(i.url);
+  saveReadSet(readUrls);
+  render();
+  updateStatusbar(ALL, window.__meta || {});
+});
+
+["filter-portal", "filter-street", "filter-state", "sort-by"].forEach(id => {
+  document.getElementById(id).addEventListener("change", render);
+});
+
+async function init() {
+  try {
+    const res = await fetch("data/listings.json", { cache: "no-store" });
+    const data = await res.json();
+    ALL = data.listings || [];
+    window.__meta = data.meta || {};
+    populateFilters(ALL);
+    updateCriteria(window.__meta);
+    updateStatusbar(ALL, window.__meta);
+    render();
+  } catch (e) {
+    document.getElementById("empty-state").hidden = false;
+    document.getElementById("empty-state").innerHTML =
+      "<h2>Nie udało się wczytać danych</h2><p>Sprawdź, czy plik data/listings.json istnieje w repozytorium.</p>";
+    console.error(e);
+  }
+}
+init();
+</script>
+</body>
+</html>
