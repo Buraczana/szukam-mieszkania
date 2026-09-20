@@ -1,0 +1,55 @@
+name: Skanuj oferty mieszkań
+
+on:
+  schedule:
+    # Codziennie o 5:00 UTC (czyli ok. 6:00-7:00 czasu polskiego, zależnie od pory roku)
+    - cron: "0 5 * * *"
+  workflow_dispatch: {}
+    # ^ dzięki temu można też uruchomić skanowanie ręcznie przyciskiem "Run workflow"
+    #   w zakładce Actions - to właśnie robimy przy pierwszym uruchomieniu.
+
+permissions:
+  contents: write
+  # ^ WAŻNE: to musi się zgadzać z ustawieniem w Settings -> Actions -> General ->
+  #   Workflow permissions -> "Read and write permissions" (patrz README, krok 4).
+
+concurrency:
+  group: skan-ofert
+  cancel-in-progress: false
+  # ^ jeśli poprzedni skan jeszcze trwa, nowy czeka w kolejce zamiast startować
+  #   równolegle (co mogłoby powodować konflikty przy zapisie do repozytorium).
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    # ^ TWARDA siatka bezpieczeństwa: nawet gdyby skrypt z jakiegoś powodu się
+    #   zawiesił, GitHub sam przerwie zadanie po 25 minutach zamiast kręcić się
+    #   godzinami. Normalny przebieg powinien kończyć się w ok. 10-15 minut.
+    steps:
+      - name: Pobierz kod repozytorium
+        uses: actions/checkout@v4
+
+      - name: Ustaw Pythona
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Zainstaluj zależności
+        run: pip install -r requirements.txt
+
+      - name: Uruchom skaner ofert
+        run: python scraper.py
+
+      - name: Zapisz nowe dane w repozytorium
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/listings.json
+          git pull --rebase origin main || true
+          if git diff --cached --quiet; then
+            echo "Brak zmian w danych - nic do zapisania."
+          else
+            git commit -m "Aktualizacja ofert: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
