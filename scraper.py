@@ -3,7 +3,27 @@
 """
 Skaner ofert mieszkań na sprzedaż (rynek wtórny) w Warszawie.
 
-WERSJA 5 - naprawia "zero wyników mimo istniejących ofert" (np. na ul.
+WERSJA 6 - naprawia "Kasprowicza i Płatnicza nadal się nie pojawiają" mimo
+że poprawki z wersji 5 zadziałały. Potwierdzone na żywej stronie: Otodom
+faktycznie ma te ogłoszenia (sprawdzone bezpośrednio), ale w przeciwieństwie
+do OLX i Adresowo NIE wspiera wyszukiwania po konkretnej ulicy w adresie
+URL - tylko po dzielnicy/mieście. Skaner przegląda więc ogólną listę miejską
+(ok. 9500 aktywnych ofert) i dopasowuje ulice lokalnie, ale skanował tylko
+6-20 stron (poniżej 8% wszystkich ofert) - rzadsza, konkretna ulica mogła
+po prostu nie trafić w tak wąski wycinek.
+Naprawa: znacznie zwiększona głębokość skanowania (60 stron przy pierwszym
+uruchomieniu, 24 przy kolejnych) ORAZ inteligentne zatrzymanie oparte na
+RZECZYWISTYM wieku ogłoszeń widocznym na kartach ("Dodane X dni temu") - gdy
+skan trafi na stronę, na której WSZYSTKIE widoczne daty są już wyraźnie
+starsze niż zakładany horyzont czasowy, kończy się wcześniej (oszczędza
+budżet czasu), zamiast trzymać się sztywnej liczby stron. Gdy portal nie
+pokazuje takich znaczników w ogóle, skaner bezpiecznie skanuje do pełnej,
+nowej głębokości. Zweryfikowane testami symulującymi wielostronicowe
+wyniki - zarówno dopasowanie "ukryte" głęboko w wynikach, jak i poprawne
+wcześniejsze zatrzymanie przy wykryciu starszych dat.
+
+
+WERSJA 5 - naprawiła wcześniejsze "zero wyników mimo istniejących ofert" (np. na ul.
 Kasprowicza i Płatniczej). Dwie potwierdzone (nie domniemane) przyczyny,
 zweryfikowane bezpośrednio na żywej stronie i na testach:
 
@@ -434,13 +454,21 @@ def add_matches(data, existing_urls, criteria, matches, now_iso, counters, run_s
 # ---------------------------------------------------------------------------
 
 def scan_otodom_once(streets, criteria, run_settings, is_first_run):
+    """
+    Otodom NIE wspiera wyszukiwania po konkretnej ulicy w adresie URL (tylko
+    po dzielnicy/mieście) - dlatego skanujemy ogólną listę miejską (ok. 9500
+    aktywnych ofert w Warszawie) i dopasowujemy ulice lokalnie. Żeby to miało
+    sens, trzeba przejrzeć naprawdę dużo stron - stąd wyższy limit stron niż
+    dla portali ze skanowaniem "raz na cały przebieg". Żeby nie marnować
+    budżetu czasu, gdy trafimy już na wyraźnie starsze ogłoszenia (na
+    podstawie widocznych znaczników "Dodane X dni temu"), skan zatrzymuje się
+    wcześniej - ale tylko gdy ma na to twardy dowód, nie na sztywnej liczbie
+    stron.
+    """
     matches = []
     max_pages = run_settings["otodom_pages_first_run"] if is_first_run else run_settings["otodom_pages_daily"]
-    # Adres potwierdzony bezpośrednim sprawdzeniem na żywej stronie (2026-09):
-    # przecinek między "mieszkanie" i "rynek-wtorny", BEZ powtórzenia "warszawa".
-    # Poprzednia wersja miała błędny adres (.../warszawa/warszawa/warszawa), przez
-    # co Otodom po cichu zwracał 0 ogłoszeń dla nierozpoznanej lokalizacji -
-    # bez błędu HTTP, więc nic tego nie sygnalizowało w logach.
+    max_age = run_settings["subsequent_run_lookback_days"] + DATE_VERIFICATION_BUFFER_DAYS if not is_first_run \
+        else run_settings["first_run_lookback_days"] + DATE_VERIFICATION_BUFFER_DAYS
     base_search = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,rynek-wtorny/mazowieckie/warszawa"
     for page in range(1, max_pages + 1):
         if time_budget_exceeded():
@@ -456,12 +484,21 @@ def scan_otodom_once(streets, criteria, run_settings, is_first_run):
                                   criteria["price_min_pln"], criteria["price_max_pln"])
         if not items:
             break
+
         for it in items:
             for street in matching_streets(it, streets):
                 m = dict(it)
                 m["portal"] = "Otodom.pl"
                 m["street"] = street["display"]
                 matches.append(m)
+
+        # Zatrzymanie oparte na dowodzie wieku (działa tylko, jeśli strona
+        # faktycznie pokazuje znaczniki wieku - w przeciwnym razie po prostu
+        # skanujemy aż do max_pages / budżetu czasu, bez ryzyka błędu).
+        known_ages = [it["age_hint_days"] for it in items if it["age_hint_days"] is not None]
+        if page > 5 and known_ages and min(known_ages) > max_age:
+            log(f"  -> strona {page}: wszystkie widoczne daty starsze niż {max_age} dni - kończę Otodom wcześniej")
+            break
     return matches
 
 
