@@ -1,7 +1,7 @@
 {
   "meta": {
-    "last_run": "2026-10-04T10:52:23+00:00",
-    "last_run_new_listings": 0,
+    "last_run": "2026-10-05T12:00:01+00:00",
+    "last_run_new_listings": 1,
     "last_run_skipped_old": 0,
     "last_run_errors": [],
     "last_run_timed_out": false,
@@ -14,7 +14,21 @@
       "area_max_m2": 42,
       "market": "wtorny (secondary market only)"
     },
-    "total_listings": 0
+    "total_listings": 1
   },
-  "listings": []
+  "listings": [
+    {
+      "url": "https://www.otodom.pl/hpr/pl/oferta/2-pokoje-39-m-grzybowska-6-10-srodmiescie-ID4Do4O",
+      "title": "2 pokoje | 39 m² | Grzybowska 6/10 | Śródmieście",
+      "price": 669000,
+      "area": 39.0,
+      "location": null,
+      "district": "Śródmieście",
+      "portal": "Otodom.pl",
+      "street": "Ul. Grzybowska, Warszawa",
+      "first_seen": "2026-10-05T12:00:01+00:00",
+      "read": false,
+      "needs_review": false
+    }
+  ]
 }
