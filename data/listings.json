@@ -1,7 +1,7 @@
 {
   "meta": {
-    "last_run": "2026-10-25T09:32:45+00:00",
-    "last_run_new_listings": 0,
+    "last_run": "2026-10-26T10:43:30+00:00",
+    "last_run_new_listings": 1,
     "last_run_skipped_old": 0,
     "last_run_errors": [],
     "last_run_timed_out": false,
@@ -14,9 +14,22 @@
       "area_max_m2": 42,
       "market": "wtorny (secondary market only)"
     },
-    "total_listings": 2
+    "total_listings": 3
   },
   "listings": [
+    {
+      "url": "https://www.otodom.pl/hpr/pl/oferta/mieszkanie-4-pokoje-60-m2-przestronne-ID9P5lkt",
+      "title": "2 pokoje | 39 m² | Grzybowska 6/10 | Śródmieście",
+      "price": 665000,
+      "area": 39.0,
+      "location": null,
+      "district": "Śródmieście",
+      "portal": "Otodom.pl",
+      "street": "Ul. Grzybowska, Warszawa",
+      "first_seen": "2026-10-26T10:43:30+00:00",
+      "read": false,
+      "needs_review": false
+    },
     {
       "url": "https://www.otodom.pl/hpr/pl/oferta/mieszkanie-4-pokoje-136-m2-taras-ID9P5lk5",
       "title": "Sprzedam słoneczna kawalerka 25m2 z oddzielną kuchnią - Warszawa ul. Dionizosa",
