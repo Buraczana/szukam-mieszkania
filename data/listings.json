@@ -1,7 +1,7 @@
 {
   "meta": {
-    "last_run": "2026-11-02T13:02:05+00:00",
-    "last_run_new_listings": 0,
+    "last_run": "2026-11-03T12:34:47+00:00",
+    "last_run_new_listings": 1,
     "last_run_skipped_old": 0,
     "last_run_errors": [],
     "last_run_timed_out": false,
@@ -14,9 +14,22 @@
       "area_max_m2": 42,
       "market": "wtorny (secondary market only)"
     },
-    "total_listings": 3
+    "total_listings": 4
   },
   "listings": [
+    {
+      "url": "https://www.otodom.pl/pl/oferta/zielony-zoliborz-ID4DOM4",
+      "title": "Zielony Żoliborz",
+      "price": 740000,
+      "area": 37.0,
+      "location": null,
+      "district": "Żoliborz",
+      "portal": "Otodom.pl",
+      "street": "Ul. Zoli, Warszawa",
+      "first_seen": "2026-11-03T12:34:47+00:00",
+      "read": false,
+      "needs_review": false
+    },
     {
       "url": "https://www.otodom.pl/hpr/pl/oferta/mieszkanie-4-pokoje-60-m2-przestronne-ID9P5lkt",
       "title": "2 pokoje | 39 m² | Grzybowska 6/10 | Śródmieście",
