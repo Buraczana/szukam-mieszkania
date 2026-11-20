@@ -1,10 +1,10 @@
 {
   "meta": {
-    "last_run": "2026-11-19T14:04:49+00:00",
-    "last_run_new_listings": 33,
-    "last_run_skipped_old": 542,
+    "last_run": "2026-11-20T13:47:35+00:00",
+    "last_run_new_listings": 6,
+    "last_run_skipped_old": 0,
     "last_run_errors": [],
-    "last_run_timed_out": true,
+    "last_run_timed_out": false,
     "facebook_manual_search_url": "https://www.facebook.com/marketplace/warszawa/search?query=mieszkanie%20sprzeda%C5%BC&sortBy=creation_time_descend",
     "criteria": {
       "city": "Warszawa",
@@ -14,9 +14,87 @@
       "area_max_m2": 42,
       "market": "wtorny (secondary market only)"
     },
-    "total_listings": 390
+    "total_listings": 396
   },
   "listings": [
+    {
+      "url": "https://www.olx.pl/d/oferta/okazja-sprzedam-2-pok-mieszkanie-36-9-m-polozone-na-warszawskiej-ochocie-przy-ul-grojeckiej-10-min-do-centrum-CID3-ID1cW0dt.html?search_reason=search%7Corganic",
+      "title": "Okazja Sprzedam 2-pok. mieszkanie, 36,9 m², położone na warszawskiej Ochocie, pr",
+      "price": 655000,
+      "area": 36.9,
+      "location": null,
+      "district": "Ochota",
+      "portal": "Olx.pl",
+      "street": "Ul. Bałuckiego, Warszawa",
+      "first_seen": "2026-11-20T13:47:35+00:00",
+      "read": false,
+      "needs_review": false
+    },
+    {
+      "url": "https://www.olx.pl/d/oferta/mieszkanie-30-m-do-remontu-dwa-pokoje-bardzo-blisko-pkp-rakowiec-CID3-ID1d1jum.html?search_reason=search%7Corganic",
+      "title": "Mieszkanie 30 m² do remontu – dwa pokoje, bardzo blisko PKP Rakowiec 499 000 zł ",
+      "price": 499000,
+      "area": 30.0,
+      "location": null,
+      "district": "Włochy",
+      "portal": "Olx.pl",
+      "street": "Ul. Lewicka, Warszawa",
+      "first_seen": "2026-11-20T13:47:35+00:00",
+      "read": false,
+      "needs_review": false
+    },
+    {
+      "url": "https://www.olx.pl/d/oferta/mokotow-37-8-m2-2-pokoje-metro-pola-mokotowskie-CID3-ID1cMPjj.html?search_reason=search%7Corganic",
+      "title": "Mokotów  37,8 m2   2 pokoje Metro Pola Mokotowskie 750 000 zł do negocjacji Wars",
+      "price": 750000,
+      "area": 37.8,
+      "location": null,
+      "district": "Mokotów",
+      "portal": "Olx.pl",
+      "street": "Ul. Mokotowska, Warszawa",
+      "first_seen": "2026-11-20T13:47:35+00:00",
+      "read": false,
+      "needs_review": false
+    },
+    {
+      "url": "https://www.olx.pl/d/oferta/2-pokoje-z-balkonem-miejsce-postojowe-i-komorka-zamkniete-osiedle-ursus-CID3-ID1d1vZh.html?search_reason=search%7Corganic",
+      "title": "2 pokoje z balkonem | Miejsce postojowe i komórka | Zamknięte osiedle | Ursus 55",
+      "price": 559000,
+      "area": 38.4,
+      "location": null,
+      "district": "Ursus",
+      "portal": "Olx.pl",
+      "street": "Ul. Filtrowa, Warszawa",
+      "first_seen": "2026-11-20T13:47:35+00:00",
+      "read": false,
+      "needs_review": false
+    },
+    {
+      "url": "https://www.olx.pl/d/oferta/sprzedam-mieszkanie-35-8-m-warszawa-bielany-CID3-ID1cXcd9.html?search_reason=search%7Corganic",
+      "title": "Sprzedam: Mieszkanie 35,8 m² – Warszawa, Bielany 740 000 zł Warszawa, Bielany - ",
+      "price": 740000,
+      "area": 35.8,
+      "location": null,
+      "district": "Bielany",
+      "portal": "Olx.pl",
+      "street": "Ul. Bielańska, Warszawa",
+      "first_seen": "2026-11-20T13:47:35+00:00",
+      "read": false,
+      "needs_review": false
+    },
+    {
+      "url": "https://www.olx.pl/d/oferta/klimatyczne-dwupokojowe-mieszkanie-wsrod-zieleni-CID3-ID1d2qUm.html?search_reason=search%7Corganic",
+      "title": "Klimatyczne dwupokojowe mieszkanie wśród zieleni. 665 000 zł do negocjacji Warsz",
+      "price": 665000,
+      "area": 40.5,
+      "location": null,
+      "district": "Białołęka",
+      "portal": "Olx.pl",
+      "street": "Ul. Mierosławskiego, Warszawa",
+      "first_seen": "2026-11-20T13:47:35+00:00",
+      "read": false,
+      "needs_review": false
+    },
     {
       "url": "https://www.otodom.pl/pl/oferta/bezposrednio-30m2-z-garderoba-na-ochocie-wyposazone-ID4E2Rl",
       "title": "Bezpośrednio! 30m2 z garderobą na Ochocie! Wyposażone! 585 000 zł Warszawa, Ocho",
